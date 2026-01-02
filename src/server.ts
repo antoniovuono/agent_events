@@ -1,18 +1,18 @@
 import Fastify from 'fastify';
+import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
+import { eventsRoutes } from './routes/events-routes';
 
-const fastify = Fastify({
-  logger: true,
-});
+const app = Fastify();
 
-fastify.get('/', (request, reply) => {
-  reply.send({ hello: 'world' });
-});
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
 
-fastify
+app.register(eventsRoutes);
+
+app
   .listen({
     port: 3333,
   })
-  .catch((err) => {
-    fastify.log.error(err);
-    process.exit(1);
+  .then(() => {
+    console.log('Server started on port 3333!');
   });
