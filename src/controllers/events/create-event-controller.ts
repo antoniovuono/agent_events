@@ -11,9 +11,11 @@ export async function createEvent(app: FastifyInstance) {
         body: z.object({
           title: z.string().min(2),
           description: z.string().min(2),
-          startsDate: z.coerce.date(),
-          eventLatitude: z.number(),
-          eventLongitude: z.number(),
+          startsDate: z.coerce.date().refine((date) => date >= new Date(), {
+            message: 'A data de início do evento deve ser hoje ou uma data futura.',
+          }),
+          eventLatitude: z.number().min(-90).max(90),
+          eventLongitude: z.number().min(-180).max(180),
         }),
       },
     },
