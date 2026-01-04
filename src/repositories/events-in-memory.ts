@@ -5,6 +5,10 @@ type EventsProps = {
   title: string;
   description: string;
   startsDate: Date;
+  city: string;
+  place: string;
+  eventLatitude: number;
+  eventLongitude: number;
 };
 
 let events: EventsProps[] = [];
@@ -15,6 +19,10 @@ export function createEventInMemory(event: EventsProps) {
     title: event.title,
     description: event.description,
     startsDate: event.startsDate,
+    city: event.city,
+    place: event.place,
+    eventLatitude: event.eventLatitude,
+    eventLongitude: event.eventLongitude,
   };
 
   events.push(newEvent);

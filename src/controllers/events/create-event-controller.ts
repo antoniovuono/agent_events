@@ -14,6 +14,8 @@ export async function createEvent(app: FastifyInstance) {
           startsDate: z.coerce.date().refine((date) => date >= new Date(), {
             message: 'A data de início do evento deve ser hoje ou uma data futura.',
           }),
+          city: z.string().min(2),
+          place: z.string().min(2),
           eventLatitude: z.number().min(-90).max(90),
           eventLongitude: z.number().min(-180).max(180),
         }),
@@ -21,9 +23,9 @@ export async function createEvent(app: FastifyInstance) {
     },
 
     async (request, reply) => {
-      const { title, description, startsDate } = request.body;
+      const { title, description, startsDate, city, place, eventLatitude, eventLongitude } = request.body;
 
-      const events = createEventInMemory({ title, description, startsDate });
+      const events = createEventInMemory({ title, description, startsDate, city, place, eventLatitude, eventLongitude });
 
       return reply.status(201).send(events);
     },
