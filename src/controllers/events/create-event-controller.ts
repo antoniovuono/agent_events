@@ -11,15 +11,17 @@ export async function createEvent(app: FastifyInstance) {
         body: z.object({
           title: z.string().min(2),
           description: z.string().min(2),
-          starts_date: z.coerce.date(),
+          startsDate: z.coerce.date(),
+          eventLatitude: z.number(),
+          eventLongitude: z.number(),
         }),
       },
     },
 
     async (request, reply) => {
-      const { title, description, starts_date } = request.body;
+      const { title, description, startsDate } = request.body;
 
-      const events = createEventInMemory({ title, description, starts_date });
+      const events = createEventInMemory({ title, description, startsDate });
 
       return reply.status(201).send(events);
     },

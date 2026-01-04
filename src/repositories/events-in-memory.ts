@@ -4,7 +4,7 @@ type EventsProps = {
   id?: string;
   title: string;
   description: string;
-  starts_date: Date;
+  startsDate: Date;
 };
 
 let events: EventsProps[] = [];
@@ -14,7 +14,7 @@ export function createEventInMemory(event: EventsProps) {
     id: randomUUID(),
     title: event.title,
     description: event.description,
-    starts_date: event.starts_date,
+    startsDate: event.startsDate,
   };
 
   events.push(newEvent);
