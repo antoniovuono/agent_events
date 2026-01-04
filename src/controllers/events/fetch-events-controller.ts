@@ -6,6 +6,6 @@ export async function fetchEvents(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get('/events', async (request, reply) => {
     const events = fetchEventsInMemory();
 
-    return reply.status(201).send(events);
+    return reply.status(200).send(events);
   });
 }
