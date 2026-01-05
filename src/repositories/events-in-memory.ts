@@ -1,7 +1,6 @@
 import { randomUUID } from 'node:crypto';
 
 type EventsProps = {
-  id?: string;
   title: string;
   description: string;
   startsDate: Date;

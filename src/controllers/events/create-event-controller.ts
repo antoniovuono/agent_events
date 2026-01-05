@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
-import { createEventInMemory } from '../../repositories/events-in-memory';
+import { createEventService } from '../../services/events/create-event-service';
 
 export async function createEvent(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -25,9 +25,12 @@ export async function createEvent(app: FastifyInstance) {
     async (request, reply) => {
       const { title, description, startsDate, city, place, eventLatitude, eventLongitude } = request.body;
 
-      const events = createEventInMemory({ title, description, startsDate, city, place, eventLatitude, eventLongitude });
+      const event = await createEventService({ title, description, startsDate, city, place, eventLatitude, eventLongitude });
 
-      return reply.status(201).send(events);
+      return reply.status(201).send({
+        message: 'Evento criado com sucesso!',
+        event,
+      });
     },
   );
 }
